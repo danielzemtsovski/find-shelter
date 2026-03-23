@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import sheltersRouter from './src/routers/shelters.router.js'
 import dotenv from 'dotenv'
 import { connectDB } from './src/db/mongo.js'
 
@@ -13,7 +14,7 @@ app.use(express.json())
 
 await connectDB()
 
-
+app.use('/shelters', sheltersRouter)
 
 app.listen(PORT, () => {
     console.log('Server is running on port http://localhost:',PORT)
