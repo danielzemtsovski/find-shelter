@@ -1,5 +1,5 @@
 function HomePage() {
-    const isAlertActive = falsegit;
+    const isAlertActive = true;
 
     return (
         <div>
