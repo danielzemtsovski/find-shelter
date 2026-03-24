@@ -1,14 +1,14 @@
 const BASE_URL = "http://localhost:5000";
 
-async function request(path) {
+async function request(path,options) {
   const url = `${BASE_URL}${path}`;
-
+  const {headers, ...rest} = options;
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
-      ...options.headers,
+      ...headers
     },
-    ...options,
+    rest,
   });
 
   if (!res.ok) {
@@ -19,7 +19,9 @@ async function request(path) {
 
 
 export async function fetchAllShelters() {
-  return request("/shelters");
+  const result = await request("/shelters", {});
+  console.log(result)
+  return result
 }
 
 
