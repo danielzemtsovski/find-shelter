@@ -15,7 +15,6 @@ const PORT = process.env.PORT || 3000;
 
 const server = http.createServer(app);
 
-// הגדרת Socket.io
 const io = new Server(server, {
   cors: {
     origin: "*", 
@@ -26,23 +25,17 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-// פונקציית אתחול המערכת
 async function bootstrap() {
   try {
-    // 1. חיבור למסד הנתונים
     await connectDB();
     console.log("✅ Connected to MongoDB");
 
-    // 2. יצירת/עדכון מקלטים ב-DB (במידה ויש לכם לוגיקת Seed)
     await createShelters();
 
-    // 3. הפעלת המאזין ל-Redis (מקבל מדניאל ומפיץ ל-Socket)
     await startRedisListener(io);
 
-    // 4. נתיבי API רגילים (עבור הצוות שבונה את רשימת המקלטים)
     app.use("/shelters", sheltersRouter);
 
-    // הפעלת השרת
     server.listen(PORT, () => {
       console.log(`🚀 Server is running on http://localhost:${PORT}`);
     });
@@ -55,7 +48,6 @@ async function bootstrap() {
 
 bootstrap();
 
-// ניהול חיבורי לקוחות
 io.on("connection", (socket) => {
   console.log(`👤 User connected: ${socket.id}`);
 });
