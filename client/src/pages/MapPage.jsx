@@ -50,20 +50,6 @@ function RecenterAutomatically({ position, isAutoCenter, setIsAutoCenter }) {
     return null;
 }
 
-const getUserLocation = () => {
-    return new Promise((resolve) => {
-        navigator.geolocation.getCurrentPosition(
-            ({ coords }) => resolve([coords.latitude, coords.longitude]),
-            () => resolve([32.0853, 34.7818]),
-            {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            }
-        );
-    });
-};
-
 function MapPage() {
     const [myPosition, setMyPosition] = useState([32.0853, 34.7818]);
     const [loading, setLoading] = useState(true);
